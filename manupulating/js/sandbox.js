@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('select[name="day"]').append("<option>wednesday</option>")
   alert("option wednesday appended");
   //5.Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
-  $('#main').append("<div class='module'></div>");
+  $('div.module').last().after("<div class='module'></div>");
   $('div.module').last().append('<img src="images/fruit.jpg" alt="new image" />');
   alert("new div appended");
 })
