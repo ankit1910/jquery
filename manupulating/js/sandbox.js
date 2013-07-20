@@ -1,21 +1,21 @@
-$(document).ready(function() {
+$(document).ready(function(){
   //1. Add five new list items to the end of the unordered list #myList.
+  var itemToAdd = 5
   var myList = $('#myList');
-  for(var i = 1; i < 6 ; i++){
+  for(var i = 1; i <= itemToAdd ; i++){
     myList.append("<li>Appended item'" + i + "'</li>");
   }
-  alert("child appended");
   //2. Remove the odd list items
   $('#myList li:odd').remove();
-  alert("odd list items removed");
   //3. Add another h2 and another paragraph to the last div.module
-  $('div.module').last().prepend("<h2>heading tag appended</h2><p>new paragraph appended</p>");
-  alert("paragraph and h2 appended");
+  divHeading = "heading tag appended";
+  divParagraph = "paragraph tag appended";
+  $('div.module:last').prepend("<h2>" + divHeading + "</h2><p>" + divParagraph + "</p>");
   //4. Add another option to the select element; give the option the value "Wednesday"
-  $('select[name="day"]').append("<option>wednesday</option>")
-  alert("option wednesday appended");
+  optionValue = "Wednesday";
+  $('select[name="day"]').append("<option value='" + optionValue +"'>Wednesday</option>")
   //5.Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
-  $('div.module').last().after("<div class='module'></div>");
-  $('div.module').last().append('<img src="images/fruit.jpg" alt="new image" />');
-  alert("new div appended");
+  var imageSrc = $("img[alt]").attr("src");
+  $("<div class='module'></div>").insertAfter($('div.module:last'))
+                                 .append('<img src="' + imageSrc + '" />');
 })
