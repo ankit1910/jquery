@@ -1,0 +1,12 @@
+#add{
+  float: right;
+}
+
+#container{
+  width: 400px;
+  border: solid 1px black;
+}
+
+.highlight{
+  background-color: #DCDCDC;
+}
