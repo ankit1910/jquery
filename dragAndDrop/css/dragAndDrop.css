@@ -1,0 +1,20 @@
+#container{
+  width: 600px;
+  height: 200px;
+  margin-left: 200px;
+  border: solid 2px #DCDCDC;
+}
+#first_box, #second_box{
+  margin-left: 50px;
+  float: left;
+  width: 200px;
+  height: 100px;
+  border: solid 1px;
+  overflow: scroll;
+}
+ul{
+  list-style-type: none;
+}
+.item{
+  color: red;
+}
