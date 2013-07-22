@@ -1,19 +1,18 @@
 $(function(){
-  var textHint = $('label[for="q"]').text();
-  $('label[for="q"]').remove();
+  var textHint = $('label[for="q"]').remove()
+                                    .text();
   $('#q') .addClass("hint")
           .val(textHint)
           .bind('focus', function(){
-            $(this).addClass('hint');
             if($(this).val() == textHint){
-              $(this).val("");
+              $(this).removeClass('hint')
+                     .val("");
             }
           })
           .bind('blur',function(){
             if($(this).val() == ""){
-              $(this).val(textHint);
-            }else{
-              $(this).removeClass('hint');
+              $(this).val(textHint)
+                     .addClass('hint');
             }
           })
-})
+});
