@@ -14,7 +14,7 @@ $(document).ready(function(){
   var optionValue = "Wednesday";
   $('select[name="day"]').append("<option value='" + optionValue +"'>Wednesday</option>")
   //5.Add a new div.module to the page after the last one; put a copy of one of the existing images inside of it.
-  var imageSrc = $("img[alt='fruit']").clone();
+  var imageSrc = $("img:first").clone();
   $("<div class='module'></div>").insertAfter($('div.module:last'))
                                  .append(imageSrc);
 });
