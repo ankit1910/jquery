@@ -3,6 +3,6 @@ $(document).ready(function(){
 })
 function dropdown(){
   $('#nav li').hover(function(){
-    $(this).toggleClass('hover').children("ul").slideToggle(10);
-  })
+    $(this).children("ul").toggleClass('hover');
+  });
 }
