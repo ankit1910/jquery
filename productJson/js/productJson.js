@@ -15,27 +15,30 @@ $(document).ready(function(){
 });
 function JSONfilters(){
   this.brandColorFilter = function(jsonObj){
-    JSONcolor = [] ;
+    JSONBrandColor = [] ;
     $('.brand, .color').each(function(){
       if((this).checked){
         for(var i = 0; i < jsonObj.length; i++){
           if($(this).attr('id') == jsonObj[i].brand || $(this).attr('id') == jsonObj[i].color){
-            JSONcolor.push(jsonObj[i]);
+            JSONBrandColor.push(jsonObj[i]);
           }
         }
       }
     })
-    if($('.brand:checked').length ==  0 || $('.color:checked').length == 0){
-      JSONcolor = JSONcolor.concat(jsonObj);
+    if($('.brand:checked').length ==  0 && $('.color:checked').length == 0){
+      JSONBrandColor = jsonObj.concat(jsonObj);
     }
-    this.uniqueBlocks(JSONcolor);
+    else if($('.brand:checked').length ==  0 || $('.color:checked').length == 0){
+      JSONBrandColor = JSONBrandColor.concat(jsonObj);
+    }
+    this.uniqueBlocks(JSONBrandColor);
   }// to remove the duplicate blocks using reverse bubble sort.
-  this.uniqueBlocks = function(JSONcolor){
+  this.uniqueBlocks = function(JSONBrandColor){
     JSONdisplay = [];
-    for(var i = 0; i < JSONcolor.length; i++){
-      for (var j = (i+1); j < JSONcolor.length; j++){
-        if(JSONcolor[i].name == JSONcolor[j].name){
-          JSONdisplay.push(JSONcolor[i]);
+    for(var i = 0; i < JSONBrandColor.length; i++){
+      for (var j = (i+1); j < JSONBrandColor.length; j++){
+        if(JSONBrandColor[i].name == JSONBrandColor[j].name){
+          JSONdisplay.push(JSONBrandColor[i]);
         }
       }
     }
