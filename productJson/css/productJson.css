@@ -1,0 +1,26 @@
+#filters{
+  width: 200px;
+  background: #DCDCDC;
+  border: solid;
+  float: left;
+}
+#filters div{
+  width: 150px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  border: solid 1px;
+}
+#products{
+  float: left;
+  margin-left: 50px;
+  margin-top: 30px;
+  width: 500px;
+  height: 400px;
+  border: solid;
+}
+.prod{
+  height: 98px;
+  width: 98px;
+  border: solid 1px;
+  float: left;
+}
