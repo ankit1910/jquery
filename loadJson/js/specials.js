@@ -16,8 +16,8 @@ function retrieveJson(){
     var input = $(this).val();
     $('li.buttons').remove();
     var key = jsonObj[input];
-    $('#outputs').html(key.title + "<p>" + key.text + "</p>");
-    $('#outputs').attr('style', 'color:' + key.color);
-    $('#outputs').append('<p><img src="../loadJson' + key.image + '" /></p>')
+    $('#outputs').html(key.title + "<p>" + key.text + "</p>")
+                 .attr('style', 'color:' + key.color)
+                 .append('<p><img src="../loadJson' + key.image + '" /></p>');
   })
 }
