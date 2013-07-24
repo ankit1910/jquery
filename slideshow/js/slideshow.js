@@ -1,7 +1,8 @@
 $(function(){
   var $slideshow = $('#slideshow');
   var len = $slideshow.children("li").length, i = 0;
-  $('body').prepend($slideshow);
+  $('body').prepend("<div id='picture' style='width:900px; height:390px'></div>")
+           .children('#picture').prepend($slideshow);
   $slideshow.children('li').hide()
                            .parent().after("<div id='description' class='current'></div>");
   fadeInOut(len, i);
@@ -15,5 +16,5 @@ function fadeInOut(len, i){
     i = 0;
   }
   //repeating the next image after particular time..
-  setTimeout(function(){fadeInOut(len,i)},3000);
+  setTimeout(function(){fadeInOut(len,i)},3002);
 }
