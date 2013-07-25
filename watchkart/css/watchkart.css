@@ -1,0 +1,78 @@
+#container{
+  width: 900px;
+  height: 650px;
+  margin-left: 50px;
+  border: solid 2px #DCDCDC;
+  overflow: hidden;
+}
+#productTab, #mycartTab{
+  font-size: 36px;
+  margin-left: 10px;
+  width: 200px;
+  border: solid 1px;
+  border-bottom: none;
+  float: left;
+}
+#productDiv, #mycartDiv{
+  width: 900px;
+  height: 550px;
+  clear: both;
+  overflow: scroll;
+}
+#bar{
+  height: 50px;
+  background-color: grey;
+}
+#search{
+  width: 200px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+#searchButton, #clearButton{
+  height: 30px;
+  width: 90px;
+  background-color: white;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+#brand{
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 100px;
+}
+#mycartDiv{
+  display: none;
+  background-color: grey;
+}
+#checkoutDiv{
+  height: 60px;
+  background-color: #DCDCDC;
+}
+#total{
+  width: 150px;
+  font-size: 36px;
+  height: 40px;
+  margin-top: 10px;px;
+}
+#checkout{
+  font-size: 28px;
+  color: white;
+  background-color: black;
+  width :150px;
+  margin-left: 400px;
+}
+.selected{
+  background-color: grey;
+}
+.append{
+  background-color: #DCDCDC;
+  height: 100px;
+  border: solid 1px;
+}
+.left{
+  margin-left: 200px;
+}
+#myCart{
+  width: 800px;
+  border: solid 1px;
+}

@@ -1,0 +1,59 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>
+    watch kart
+  </title>
+  <link rel="stylesheet" type="text/css" href="css/watchkart.css" /s>
+</head>
+<body>
+  <div id="container">
+    <div id="productTab" align="center">
+      Products
+    </div>
+    <div id="mycartTab" align="center">
+      My Cart
+    </div>
+    <div id="productDiv">
+      <div id="bar">
+        Search:<input id="search" type="text" />
+        <button id="searchButton">Search</button>
+        <button id="clearButton">Clear</button>
+        Brand:
+        <select id="brand">
+          <option>All</option>
+          <option>Titan</option>
+          <option>Tissot</option>
+          <option>Tag</option>
+        </select>
+      </div>
+      <div id="productContent">
+      </div>
+    </div>
+    <div id="mycartDiv">
+      <table id="myCart" border>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Remove</th>
+        </tr>
+      </table>
+    </div>
+    <div id="checkoutDiv">
+      TOTAL:<input type="text" id="total" />
+      <button id="checkout">Checkout</button>
+    </div>
+    <div id="sample" class="append">
+      <span id="spanBrand">brand name</span><br>
+      <span id="spanName">watch name</span><br>
+      <span id="spanPrice">price</span>
+      <input class="left" type="text" maxlength="1" size="1">quantity</input>
+      <button class="left" id="addToCart">add to cart</button>
+    </div>
+  </div> 
+</body>
+<script src="libs/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="libs/watchkart.js" type="text/javascript"></script>
+</html>
