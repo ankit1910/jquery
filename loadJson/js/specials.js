@@ -14,7 +14,7 @@ $(function(){
   })  
 });
 //function to show the div part on clicking the option..
-function dispJson(jsonObj){
+var dispJson = function(jsonObj){
   $('#specials select').bind("mouseup", function(e){
     var input = $(this).val();
     if(input){   
