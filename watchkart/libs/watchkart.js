@@ -1,8 +1,7 @@
-jsonWatch = {"titan"  :[{"name": "orion", "cost": 10000},{"name": "edge", "cost": 12000},{"name": "nebula", "cost": 8000},{"name": "saga", "cost": 18000}],
-             "tissot" :[{"name": "couturier", "cost": 25000},{"name": "flamingo", "cost": 18000},{"name": "touch", "cost": 22000},{"name": "classic", "cost": 16000}],
-             "tag"    :[{"name": "calliber", "cost": 85000},{"name": "carrera", "cost": 125000},{"name": "monaco", "cost": 400000}]
+var jsonWatch = {"titan"  :[{"name": "orion", "cost": 10000, "url": "images/watch.jpg"},{"name": "edge", "cost": 12000, "url": "images/watch.jpg"},{"name": "nebula", "cost": 8000, "url": "images/watch.jpg"},{"name": "saga", "cost": 18000, "url": "images/watch.jpg"}],
+             "tissot" :[{"name": "couturier", "cost": 25000, "url": "images/watch.jpg"},{"name": "flamingo", "cost": 18000, "url": "images/watch.jpg"},{"name": "touch", "cost": 22000, "url": "images/watch.jpg"},{"name": "classic", "cost": 16000, "url": "images/watch.jpg"}],
+             "tag"    :[{"name": "calliber", "cost": 85000, "url": "images/watch.jpg"},{"name": "carrera", "cost": 125000, "url": "images/watch.jpg"},{"name": "monaco", "cost": 400000, "url": "images/watch.jpg"}]
            }
-var totalAmount = 0;
 $(function(){
   var watch = new watchKart();
   watch.displayWatch('All');
@@ -11,25 +10,31 @@ $(function(){
     watch.displayWatch(brand);
   });
   $('body').delegate('#mycartTab', 'click',function(){
-    $('#mycartTab, #productTab').toggleClass('selected');
+    $('#mycartTab').addClass('selected');
+    $('#productTab').removeClass('selected');
     $('#mycartDiv').show();
     $('#productDiv').hide();
   })
   $('body').delegate('#productTab', 'click',function(){
-    $('#mycartTab, #productTab').toggleClass('selected');
+    $('#mycartTab').removeClass('selected');
+    $('#productTab').addClass('selected');
     $('#mycartDiv').hide();
     $('#productDiv').show();
   })
   $('body').delegate('#addToCart', 'click',function(){
-    var id = $(this).parent().attr('id');
+    var id = $(this).closest('div').attr('id');
     watch.addToCart(id);
   })
   $('body').delegate('.remove', 'click', function(){
     var id = $(this).attr('id');
     watch.removeFromCart(id);
   })
+  $('body').delegate('#checkout', 'click', function(){
+    $('body').html("<h1>Thank you for shopping with watchKart :)</h1>")
+  })
 });
 function watchKart(){
+  var totalAmount = 0;
   this.displayWatch = function(brand){
     $('#productTab').addClass('selected');
     $('#productContent div').remove();
@@ -41,8 +46,9 @@ function watchKart(){
             var div = $('#sample').clone();
             $(div).attr('id',key + "_" +i)
                   .find('#spanBrand').text(" brand: " + key)
-                  .parent().find('#spanName').text(" watch: " +jsonWatch[key][i].name)
-                  .parent().find('#spanPrice').text(" Price: Rs:" +jsonWatch[key][i].cost);
+                  .parent().find('img').attr('src', jsonWatch[key][i].url)
+                  .parent().find('#spanName').text(" watch: " + jsonWatch[key][i].name)
+                  .parent().find('#spanPrice').text(" Price: Rs:" + jsonWatch[key][i].cost);
             $('#productContent').append(div);
           }
         }
@@ -54,6 +60,7 @@ function watchKart(){
         var div = $('#sample').clone();
         $(div).attr('id',brand + "_" +i)
               .find('#spanBrand').text(" brand: " + brand)
+              .parent().find('img').attr('src', jsonWatch[brand][i].url)
               .parent().find('#spanName').text(" watch: " + jsonWatch[brand][i].name)
               .parent().find('#spanPrice').text(" Price: Rs:" + jsonWatch[brand][i].cost);
         $('#productContent').append(div);
@@ -70,9 +77,9 @@ function watchKart(){
     $('#'+ param+'').find('input').val("");
     if(/\d/.test(quantity)){
       $('#myCart').append('<tr><td>' + product + '</td><td>' + price + '</td><td>' + quantity + '</td><td>' + subTotal + '</td><td><button class="remove" id="button_' + param + '">Remove</button></td></tr>');
-      $('#button_' + param +'').data("amountToReduce",subTotal);
       totalAmount += subTotal;
       $('#total').val(totalAmount);
+      $('#button_' + param +'').data("amountToReduce",subTotal);
     }
   }
   this.removeFromCart = function(param){

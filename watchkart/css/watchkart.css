@@ -76,3 +76,10 @@
   width: 800px;
   border: solid 1px;
 }
+.image{
+  float: left;
+  border: solid 1px;
+  height: 60px;
+  width: 60px;
+  margin: 10px;
+}
