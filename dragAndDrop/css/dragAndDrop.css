@@ -16,5 +16,14 @@ ul{
   list-style-type: none;
 }
 .item{
-  color: red;
+  color: blue;
+}
+.highlight{
+  background-color: #DCDCDC;
+}
+.selected{
+  background-color: yellow;
+}
+.notAccept{
+  background-color: red;
 }
