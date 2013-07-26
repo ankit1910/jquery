@@ -1,6 +1,6 @@
-var jsonWatch = {"titan"  :[{"name": "orion", "cost": 10000, "url": "images/watch.jpg"},{"name": "edge", "cost": 12000, "url": "images/watch.jpg"},{"name": "nebula", "cost": 8000, "url": "images/watch.jpg"},{"name": "saga", "cost": 18000, "url": "images/watch.jpg"}],
-             "tissot" :[{"name": "couturier", "cost": 25000, "url": "images/watch.jpg"},{"name": "flamingo", "cost": 18000, "url": "images/watch.jpg"},{"name": "touch", "cost": 22000, "url": "images/watch.jpg"},{"name": "classic", "cost": 16000, "url": "images/watch.jpg"}],
-             "tag"    :[{"name": "calliber", "cost": 85000, "url": "images/watch.jpg"},{"name": "carrera", "cost": 125000, "url": "images/watch.jpg"},{"name": "monaco", "cost": 400000, "url": "images/watch.jpg"}]
+var jsonWatch = {"titan"  :[{"name": "orion", "cost": 10000, "url": "images/titan.jpg"},{"name": "edge", "cost": 12000, "url": "images/titan.jpg"},{"name": "nebula", "cost": 8000, "url": "images/titan.jpg"},{"name": "saga", "cost": 18000, "url": "images/titan.jpg"}],
+             "tissot" :[{"name": "couturier", "cost": 25000, "url": "images/tissot.jpg"},{"name": "flamingo", "cost": 18000, "url": "images/tissot.jpg"},{"name": "touch", "cost": 22000, "url": "images/tissot.jpg"},{"name": "classic", "cost": 16000, "url": "images/tissot.jpg"}],
+             "tag"    :[{"name": "calliber", "cost": 85000, "url": "images/tag.jpg"},{"name": "carrera", "cost": 125000, "url": "images/tag.jpg"},{"name": "monaco", "cost": 400000, "url": "images/tag.jpg"}]
            }
 $(function(){
   var watch = new watchKart();
@@ -46,9 +46,9 @@ function watchKart(){
             var div = $('#sample').clone();
             $(div).attr('id',key + "_" +i)
                   .find('#spanBrand').text(" brand: " + key)
-                  .parent().find('img').attr('src', jsonWatch[key][i].url)
-                  .parent().find('#spanName').text(" watch: " + jsonWatch[key][i].name)
-                  .parent().find('#spanPrice').text(" Price: Rs:" + jsonWatch[key][i].cost);
+                  .closest('div').find('img').attr('src', jsonWatch[key][i].url)
+                  .closest('div').find('#spanName').text(" watch: " + jsonWatch[key][i].name)
+                  .closest('div').find('#spanPrice').text(" Price: Rs:" + jsonWatch[key][i].cost);
             $('#productContent').append(div);
           }
         }
@@ -60,16 +60,15 @@ function watchKart(){
         var div = $('#sample').clone();
         $(div).attr('id',brand + "_" +i)
               .find('#spanBrand').text(" brand: " + brand)
-              .parent().find('img').attr('src', jsonWatch[brand][i].url)
-              .parent().find('#spanName').text(" watch: " + jsonWatch[brand][i].name)
-              .parent().find('#spanPrice').text(" Price: Rs:" + jsonWatch[brand][i].cost);
+              .closest('div').find('img').attr('src', jsonWatch[brand][i].url)
+              .closest('div').find('#spanName').text(" watch: " + jsonWatch[brand][i].name)
+              .closest('div').find('#spanPrice').text(" Price: Rs:" + jsonWatch[brand][i].cost);
         $('#productContent').append(div);
       }
     }
   }
   this.addToCart = function(param){
     id = param.split("_");
-    console.log(id);
     var product = jsonWatch[id[0]][id[1]].name;
     var price = jsonWatch[id[0]][id[1]].cost;
     var quantity = $('#'+ param + '').find('input').val();
@@ -79,6 +78,7 @@ function watchKart(){
       $('#myCart').append('<tr><td>' + product + '</td><td>' + price + '</td><td>' + quantity + '</td><td>' + subTotal + '</td><td><button class="remove" id="button_' + param + '">Remove</button></td></tr>');
       totalAmount += subTotal;
       $('#total').val(totalAmount);
+      $('#mycartTab').text('My Cart (' + ($('#myCart tr').length-1) + ')');
       $('#button_' + param +'').data("amountToReduce",subTotal);
     }
   }
