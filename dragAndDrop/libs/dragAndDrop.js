@@ -33,6 +33,10 @@ $(function(){
       if(itemDrop.hasClass('dropable')){
         $(this).removeClass('highlight')
                .find('ul').append(itemDrop);
+        var list = $(this).find('li');
+        list.sort(function(a, b){
+          return ($(b).text()) < ($(a).text()) ? 1 : -1;
+        }).appendTo($(this).find("ul"));
       }
     }
   });
