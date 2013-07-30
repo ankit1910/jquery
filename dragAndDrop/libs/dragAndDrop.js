@@ -3,7 +3,7 @@ $(function(){
   $(".item").draggable({
     helper: 'clone',
     start: function(){
-      $(this).closest('div').addClass('highlight');
+      $(this).closest('div').addClass('highlight sourceContainer');
     },
     drag: function(){
       $(this).addClass('selected');
@@ -30,14 +30,12 @@ $(function(){
     },
     drop: function(event, ui){
       var itemDrop = $(ui.draggable);
-      if(itemDrop.hasClass('dropable')){
+      if(itemDrop.hasClass('dropable') && !$(this).hasClass('sourceContainer')){
         $(this).removeClass('highlight')
                .find('ul').append(itemDrop);
         var list = $(this).find('li');
-        list.sort(function(a, b){
-          return ($(b).text()) < ($(a).text()) ? 1 : -1;
-        }).appendTo($(this).find("ul"));
       }
+      $("#second_box, #first_box").removeClass('sourceContainer');
     }
   });
 });
