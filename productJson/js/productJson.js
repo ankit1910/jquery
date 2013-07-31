@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  jsonObj = [];
+  var jsonObj = [];
+  var filterClassArray = ['.brand', '.color', '.available'];
   $.ajax({
     url: "data/productJson.json",
     dataType: 'json',
@@ -7,61 +8,40 @@ $(document).ready(function(){
       jsonObj = data;
       var filter = new JSONfilters();
       filter.displayBlocks(jsonObj);
-      $('.brand, .color, #availablity').bind('change', function(){
-        filter.brandColorFilter(jsonObj);
+      $('.brand, .color, .available').bind('change', function(){
+        var blocks = $('#products').find('img');
+        filter.Filter(blocks, filterClassArray);
       })
     }
   })
 });
 function JSONfilters(){
-  this.brandColorFilter = function(jsonObj){
-    JSONBrandColor = [] ;
-    $('.brand, .color').each(function(){
-      if((this).checked){
-        for(var i = 0; i < jsonObj.length; i++){
-          if($(this).attr('id') == jsonObj[i].brand || $(this).attr('id') == jsonObj[i].color){
-            JSONBrandColor.push(jsonObj[i]);
+  this.Filter = function(blocks, filterClassArray){
+    for(var i = 0; i < filterClassArray.length; i++){
+      $(blocks).hide();
+      if($('' + filterClassArray[i] + ':checked').length == 0){
+        $(blocks).show();
+      }
+      else{
+        $(filterClassArray[i]).each( function(){
+          var that = this;
+          if(($(that).attr('checked'))){
+            $(blocks).each( function(){
+              if($(that).attr('id') == $(this).data('filterData').brand || $(that).attr('id') == $(this).data('filterData').color || $(that).attr('id') == $(this).data('filterData').sold_out){
+                $(this).show();
+              }
+            })
           }
-        }
+        })
       }
-    })
-    if($('.brand:checked').length ==  0 && $('.color:checked').length == 0){
-      JSONBrandColor = jsonObj.concat(jsonObj);
+      blocks = $(blocks).filter(':visible');
     }
-    else if($('.brand:checked').length ==  0 || $('.color:checked').length == 0){
-      JSONBrandColor = JSONBrandColor.concat(jsonObj);
-    }
-    this.uniqueBlocks(JSONBrandColor);
-  }// to remove the duplicate blocks using reverse bubble sort.
-  this.uniqueBlocks = function(JSONBrandColor){
-    JSONdisplay = [];
-    for(var i = 0; i < JSONBrandColor.length; i++){
-      for (var j = (i+1); j < JSONBrandColor.length; j++){
-        if(JSONBrandColor[i].name == JSONBrandColor[j].name){
-          JSONdisplay.push(JSONBrandColor[i]);
-        }
-      }
-    }
-    if($('#availablity').attr('checked')){
-      this.availableProducts(JSONdisplay);
-    }
-    else{
-      this.displayBlocks(JSONdisplay);
-    }
-  }//this function to find the available products.
-  this.availableProducts = function(JSONdisplay){
-    for(var i = 0; i < JSONdisplay.length; i++){
-      if(JSONdisplay[i].sold_out == 1){
-        JSONdisplay.splice(i,1);
-        i=i-1;
-      }
-    }
-    this.displayBlocks(JSONdisplay);
-  }//this function to display the block
+  }
   this.displayBlocks = function(jsonObj){
     $('#products').empty();
     for(var i = 0; i < jsonObj.length; i++){
-      $('#products').append('<img class="prod" src="images/' + jsonObj[i].url + '" />');
+      $('#products').append('<img id ="img_' + i + '" class="prod" src="images/' + jsonObj[i].url + '" />');
+      $('#img_' + i + '').data("filterData", { color : jsonObj[i].color, brand : jsonObj[i].brand, sold_out : jsonObj[i].sold_out});
     }
   }
 }
