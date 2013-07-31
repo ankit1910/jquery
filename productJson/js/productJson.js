@@ -25,7 +25,7 @@ function JSONfilters(){
       else{
         $(filterClassArray[i]).each( function(){
           var that = this;
-          if(($(that).attr('checked'))){
+          if(($(that).prop('checked'))){
             $(blocks).each( function(){
               if($(that).attr('id') == $(this).data('filterData').brand || $(that).attr('id') == $(this).data('filterData').color || $(that).attr('id') == $(this).data('filterData').sold_out){
                 $(this).show();
