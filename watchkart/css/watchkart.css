@@ -17,7 +17,7 @@
   width: 900px;
   height: 550px;
   clear: both;
-  overflow: scroll;
+  overflow: auto;
 }
 #bar{
   height: 50px;
