@@ -25,8 +25,8 @@ var Filter = function(blocks, filterType){
       var value = $(this).val();
       selectorString.push('img[' + filterType + '="' + value + '"]');
     })
-    selectorString.join(',');
-    blocks = blocks.filter('' + selectorString + '');
+    var selectorString = selectorString.join(',');
+    blocks = blocks.filter(selectorString);
   }
   return blocks;
 }
