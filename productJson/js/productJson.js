@@ -9,25 +9,26 @@ $(function(){
       displayBlocks(jsonObj);
       $('.brand, .color, .sold_out').bind('change', function(){
         var blocks = $('#products img');
-        blocks.show();
+        blocks.hide();
         for (var key in filters){
           blocks = Filter(blocks, filters[key]);
         }
+        blocks.show();
       })
     }
   })
 })
 var Filter = function(blocks, filterType){
-  if($('.' + filterType + ':checked').length != 0){
-    blocks.hide();
-    $('.' + filterType + '').each(function(){
-      if($(this).prop('checked')){
-        var value = $(this).val();
-        blocks.filter('img[' + filterType + '="' + value + '"]').show();
-      }
+  var selectorString = [];
+  if($('.' + filterType + ':checked').length != 0){    
+    $('.' + filterType + ':checked').each(function(){
+      var value = $(this).val();
+      selectorString.push('img[' + filterType + '="' + value + '"]');
     })
+    selectorString.join(',');
+    blocks = blocks.filter('' + selectorString + '');
   }
-  return blocks.filter(':visible');
+  return blocks;
 }
 var displayBlocks = function(jsonObj){
   for(var i = 0; i < jsonObj.length; i++){
