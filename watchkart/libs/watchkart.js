@@ -22,14 +22,15 @@ $(function(){
   })
   //event handler for search button
   body.delegate('#searchButton', 'click', function(){
-    var searchBrand = $('#search').val().trim();
-    if(searchBrand != ''){
-      watch.filterWatch(searchBrand,jsonWatch);
+    var input = $('#search').val().trim();
+    if(input != ''){
+      watch.searchWatch(input,jsonWatch);
     }
   })
   //event handler for clear button
   body.delegate('#clearButton', 'click', function(){
     $('#search').val("");
+    watch.filterWatch('all', jsonWatch);
   })
   //event handler for adding watches to cart.
   body.delegate('.addToCart', 'click',function(){
@@ -47,7 +48,7 @@ $(function(){
     $('body').html("<h1>Thank you for shopping with watchKart :)</h1><br><button id='shopAgain'>shop again</button>")
   })
   body.delegate('#shopAgain', 'click', function(){
-    location.reload();
+    window.location.replace("watchkart.html");
   })
   //event handler for button buttons.
   body.delegate('.updateRow', 'focusout', function(){
@@ -83,37 +84,53 @@ var watchKart = function(){
       }
     }        
   }
+  this.searchWatch = function(input, jsonWatch){
+    var input = input.toLowerCase();
+    $('.append').hide();
+    if(input == 'all'){
+      $('.append').show();
+    }
+    else{
+      $('.append:contains(' + input + ')').show();
+    }        
+  }
   this.addToCart = function(param, obj){
-    var product = obj.siblings('#spanName').text();
-    var price = obj.siblings('#spanPrice').text();
-    var quantity = obj.siblings('input').val();
+    var product = obj.closest('div').find('#spanName').text();
+    var price = obj.closest('div').find('#spanPrice').text();
+    var quantity = obj.closest('div').find('input').val();
     var subTotal = price*quantity;
-    obj.siblings('input').val("");
     var that = this;
     if(/\d/.test(quantity)){
-      obj.siblings('input[type="text"]').attr('style', '');
+      obj.closest('div').find('input[type="text"]').attr({'style': '', 'disabled' :true});
       obj.attr('disabled', 'true');
       $('#myCart').append('<tr><td>' + product + '</td><td name="price">' + price + '</td><td><input class="updateRow" id="update_' + param + '" maxlength="1" size="1" value="' + quantity + '" /></td><td name="subTotal">' + subTotal + '</td><td><button class="remove" id="button_' + param + '">Remove</button></td></tr>');
       this.updateCartValues();
     }
     else{
-      obj.siblings('input[type="text"]').attr('style', 'background-color:red;');
+      obj.closest('div').find('input[type="text"]').attr('style', 'background-color:red;').val("");
     }
   }
    this.removeFromCart = function(param){
     divId = param.split("button_");
     divId = divId[1];
     $('#' + divId + '').find('button.addToCart').removeAttr('disabled');
+    $('#' + divId + '').find('input[type="text"]').removeAttr('disabled').val("");
     $('#' + param + '').closest('tr').remove();
     this.updateCartValues();
   }
   this.updateCartValues = function(){
-    var totalAmount = 0;
-    $('#mycartTab').text('My Cart (' + ($('#myCart tr').length-1) + ')');
-    $('td[name="subTotal"]').each(function(){
-      totalAmount += parseInt($(this).text());
-    })
-    $('#total').val(totalAmount);
+    var item = ($('#myCart tr').length-1);
+    if (item == 0){
+      $('#mycartTab').text('My Cart');
+    }
+    else{
+      var totalAmount = 0;
+      $('#mycartTab').text('My Cart (' + item + ')');
+      $('td[name="subTotal"]').each(function(){
+        totalAmount += parseInt($(this).text());
+      })
+      $('#total').val(totalAmount);
+    }
   }
   this.updateRow = function(updateId){
     var tr = $(updateId.closest('tr'));
