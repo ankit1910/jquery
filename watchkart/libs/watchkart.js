@@ -101,7 +101,7 @@ var watchKart = function(){
     var subTotal = price*quantity;
     var that = this;
     if(/\d/.test(quantity)){
-      obj.closest('div').find('input[type="text"]').attr({'style': '', 'disabled' :true});
+      obj.closest('div').find('input[type="text"]').attr({'style': '', 'disabled' :true}).val("");
       obj.attr('disabled', 'true');
       $('#myCart').append('<tr><td>' + product + '</td><td name="price">' + price + '</td><td><input class="updateRow" id="update_' + param + '" maxlength="1" size="1" value="' + quantity + '" /></td><td name="subTotal">' + subTotal + '</td><td><button class="remove" id="button_' + param + '">Remove</button></td></tr>');
       this.updateCartValues();
@@ -114,7 +114,7 @@ var watchKart = function(){
     divId = param.split("button_");
     divId = divId[1];
     $('#' + divId + '').find('button.addToCart').removeAttr('disabled');
-    $('#' + divId + '').find('input[type="text"]').removeAttr('disabled').val("");
+    $('#' + divId + '').find('input[type="text"]').removeAttr('disabled');
     $('#' + param + '').closest('tr').remove();
     this.updateCartValues();
   }
@@ -122,6 +122,7 @@ var watchKart = function(){
     var item = ($('#myCart tr').length-1);
     if (item == 0){
       $('#mycartTab').text('My Cart');
+      $('#total').val("");
     }
     else{
       var totalAmount = 0;
@@ -137,6 +138,7 @@ var watchKart = function(){
     var price = tr.find('td[name="price"]').text();
     var quantity =tr.find('input').val();
     if(/\d/.test(quantity)){
+      tr.find('input').attr('style', 'background-color:white;');
       var newSubTotal = price*quantity;
       tr.find('td[name="subTotal"]').text(newSubTotal);
       this.updateCartValues();
